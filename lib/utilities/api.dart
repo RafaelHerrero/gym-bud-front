@@ -16,10 +16,10 @@ Future<http.Response> createUser(
   };
 
   var body = json.encode(userData);
-  Uri baseUlr = 'http://127.0.0.1:8000/users/create_user' as Uri;
+  String baseUlr = 'http://127.0.0.1:8000/users/create_user';
 
   final response = await http.post(
-    baseUlr,
+    Uri.parse(baseUlr),
     headers: {"Content-Type": "application/json"},
     body: body
   );
