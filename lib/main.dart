@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gym_bud_front/screens/login_screen.dart';
 import 'package:gym_bud_front/screens/profile_screen.dart';
+import 'package:gym_bud_front/utilities/constants.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +17,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: raisedButtonStyle,
+        ),
       ),
-      home: const ProfileScreen(),
+      home: LoginScreen(),
     );
   }
 }
