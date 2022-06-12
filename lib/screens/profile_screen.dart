@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  final String loggedUserId;
+  const ProfileScreen({Key? key, required this.loggedUserId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +73,9 @@ class ProfileScreen extends StatelessWidget {
                       title: Text(
                         "${now.EEEE}, ${now.day} ${now.MMMM}",
                       ),
-                      subtitle: const Text(
-                        "User",
-                      style: TextStyle(
+                      subtitle: Text(
+                        loggedUserId,
+                      style: const TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.w800,
                         color: Colors.black,

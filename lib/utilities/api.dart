@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-Future<Map<String, dynamic>> createUser(
+Future<String> createUser(
     String userFirstName,
     String userLastName,
     String userLogin,
@@ -34,10 +34,10 @@ Future<Map<String, dynamic>> createUser(
   // print(responseBody);
 
   if (response.statusCode == 201) {
-      return responseBody;
+      return response.body;
   }
 
-  return Future.error("error");
+  return "error";
 }
 //   print('${response.statusCode}');
 //   print(response.body);

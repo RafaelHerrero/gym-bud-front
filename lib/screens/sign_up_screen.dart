@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gym_bud_front/screens/profile_screen.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
 
 import '../utilities/api.dart';
@@ -15,7 +18,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
-      TextEditingController();
+  TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -36,9 +41,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: TextField(
+          child: TextFormField(
             keyboardType: TextInputType.emailAddress,
             controller: firstNameController,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter a Valid Name';
+              }
+              return null;
+            },
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -72,9 +83,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: TextField(
+          child: TextFormField(
             controller: lastNameController,
             keyboardType: TextInputType.emailAddress,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter a Valid LastName';
+              }
+              return null;
+            },
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -108,9 +125,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: TextField(
+          child: TextFormField(
             controller: emailController,
             keyboardType: TextInputType.emailAddress,
+            validator: (value) => validateEmail(value),
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -144,9 +162,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: TextField(
+          child: TextFormField(
             controller: passwordController,
             obscureText: true,
+            validator: (value) => validatePassword(passwordController.text),
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -180,9 +199,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: TextField(
+          child: TextFormField(
             controller: confirmPasswordController,
             obscureText: true,
+            validator: (value) {
+              if (passwordController.text != value) {
+                return 'Passwords are Different';
+              }
+              else {
+                return null;
+              }
+            },
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -210,7 +237,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: ElevatedButton(
         style: ButtonStyle(
           overlayColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
+                (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) {
                 return Colors.blueGrey;
               }
@@ -218,11 +245,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
             },
           ),
         ),
-        onPressed: () => createUser(
-            firstNameController.text,
-            lastNameController.text,
-            emailController.text,
-            passwordController.text),
+        onPressed: () async {
+          if (formKey.currentState?.validate() == true) {
+            var response = await createUser(
+                firstNameController.text,
+                lastNameController.text,
+                emailController.text,
+                passwordController.text);
+
+            if (response != 'error') {
+              var loggedUsedId = json.decode(response);
+
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => ProfileScreen(loggedUserId: loggedUsedId['user_id'],)
+              ));
+            }
+            else {
+              print('user already exists');
+            }
+          }
+        },
         child: const Text(
           'CREATE ACCOUNT',
           style: buttonTextColor,
@@ -270,47 +312,50 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     horizontal: 40.0,
                     vertical: 120.0,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const Text(
-                        'Create an Account',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Text(
+                          'Create an Account',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'OpenSans',
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildFirstNameTF(),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildLastNameTF(),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildEmailTF(),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildPasswordTF(),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildConfirmPasswordTF(),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      _buildCreateAccountBtn(),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      _buildGoBackSIgnInBtn(),
-                    ],
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        _buildFirstNameTF(),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        _buildLastNameTF(),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        _buildEmailTF(),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        _buildPasswordTF(),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        _buildConfirmPasswordTF(),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        _buildCreateAccountBtn(),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        _buildGoBackSIgnInBtn(),
+                      ],
+                    ),
                   ),
                 ),
               )
