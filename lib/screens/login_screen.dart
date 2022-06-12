@@ -9,8 +9,8 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-  class _LoginScreenState extends State<LoginScreen> {
-    bool _rememberMe = false;
+class _LoginScreenState extends State<LoginScreen> {
+  bool _rememberMe = false;
 
   Widget _buildEmailTF() {
     return Column(
@@ -109,43 +109,35 @@ class LoginScreen extends StatefulWidget {
     );
   }
 
-    Widget _buildSignInBtn() {
-      return Container(
-        padding: const EdgeInsets.symmetric(vertical: 25.0),
-        width: double.infinity,
-        child: ElevatedButton(
-          style: ButtonStyle(
-            overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                  (Set<MaterialState> states) {
-                if (states.contains(MaterialState.pressed)) {
-                  return Colors.blueGrey;
-                }
-                return null;
-              },
-            ),
-          ),
-          onPressed: () => print("signUp button pressed"),
-          child: const Text(
-            'SIGN IN',
-            style: TextStyle(
-              color: Colors.black,
-              letterSpacing: 1.5,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'OpenSans',
-            ),
+  Widget _buildSignInBtn() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 25.0),
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) {
+                return Colors.blueGrey;
+              }
+              return null;
+            },
           ),
         ),
-      );
-    }
+        onPressed: () => print("signUp button pressed"),
+        child: const Text(
+          'SIGN IN',
+          style: buttonTextColor,
+        ),
+      ),
+    );
+  }
 
   Widget _buildSignupBtn() {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, 
-            MaterialPageRoute(builder: (context) => SignUpScreen())
-        );
+            context, MaterialPageRoute(builder: (context) => SignUpScreen()));
       },
       child: RichText(
         text: const TextSpan(
@@ -171,7 +163,6 @@ class LoginScreen extends StatefulWidget {
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -209,9 +200,13 @@ class LoginScreen extends StatefulWidget {
                       ),
                       const SizedBox(height: 30.0),
                       _buildEmailTF(),
-                      const SizedBox(height: 30.0,),
+                      const SizedBox(
+                        height: 30.0,
+                      ),
                       _buildPasswordTF(),
-                      const SizedBox(height: 10.0,),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
                       _buildRememberMeCheckbox(),
                       _buildSignInBtn(),
                       _buildSignupBtn(),

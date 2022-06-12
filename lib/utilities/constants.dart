@@ -10,20 +10,26 @@ const kLabelStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
+const buttonTextColor = TextStyle(
+  color: Colors.white,
+  letterSpacing: 1.5,
+  fontFamily: 'OpenSans',
+  fontSize: 18.0,
+  fontWeight: FontWeight.bold,
+);
 
 final kBoxDecorationStyle = BoxDecoration(
-  color: Colors.green,
+  color: const Color.fromARGB(255, 69, 69, 70),
   borderRadius: BorderRadius.circular(10.0),
 );
 
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-  primary: Colors.green,
-  onPrimary: Colors.green,
+  primary: const Color.fromARGB(255, 69, 69, 70),
+  onPrimary: const Color.fromARGB(255, 53, 53, 54),
   onSurface: Colors.black12,
   fixedSize: const Size.fromHeight(50),
   shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(20))
-  ),
+      borderRadius: BorderRadius.all(Radius.circular(20))),
 );
 
 // foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),

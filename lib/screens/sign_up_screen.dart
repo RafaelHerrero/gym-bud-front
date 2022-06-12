@@ -4,25 +4,24 @@ import 'package:gym_bud_front/utilities/constants.dart';
 
 import '../utilities/api.dart';
 
-
 class SignUpScreen extends StatefulWidget {
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-  class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
     firstNameController.dispose();
     super.dispose();
   }
-
 
   Widget _buildFirstNameTF() {
     return Column(
@@ -95,7 +94,6 @@ class SignUpScreen extends StatefulWidget {
       ],
     );
   }
-
 
   Widget _buildEmailTF() {
     return Column(
@@ -212,29 +210,22 @@ class SignUpScreen extends StatefulWidget {
       child: ElevatedButton(
         style: ButtonStyle(
           overlayColor: MaterialStateProperty.resolveWith<Color?>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.pressed)) {
-                  return Colors.blueGrey;
-                }
-                return null;
-              },
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) {
+                return Colors.blueGrey;
+              }
+              return null;
+            },
           ),
         ),
         onPressed: () => createUser(
             firstNameController.text,
             lastNameController.text,
             emailController.text,
-            passwordController.text
-        ),
+            passwordController.text),
         child: const Text(
           'CREATE ACCOUNT',
-          style: TextStyle(
-            color: Colors.black,
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
+          style: buttonTextColor,
         ),
       ),
     );
@@ -291,19 +282,33 @@ class SignUpScreen extends StatefulWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 30.0,),
+                      const SizedBox(
+                        height: 30.0,
+                      ),
                       _buildFirstNameTF(),
-                      const SizedBox(height: 30.0,),
+                      const SizedBox(
+                        height: 30.0,
+                      ),
                       _buildLastNameTF(),
-                      const SizedBox(height: 30.0,),
+                      const SizedBox(
+                        height: 30.0,
+                      ),
                       _buildEmailTF(),
-                      const SizedBox(height: 30.0,),
+                      const SizedBox(
+                        height: 30.0,
+                      ),
                       _buildPasswordTF(),
-                      const SizedBox(height: 30.0,),
+                      const SizedBox(
+                        height: 30.0,
+                      ),
                       _buildConfirmPasswordTF(),
-                      const SizedBox(height: 20.0,),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
                       _buildCreateAccountBtn(),
-                      const SizedBox(height: 10.0,),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
                       _buildGoBackSIgnInBtn(),
                     ],
                   ),
