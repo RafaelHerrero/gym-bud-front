@@ -1,7 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-Future<http.Response> createUser(
+
+Future<Map<String, dynamic>> createUser(
     String userFirstName,
     String userLastName,
     String userLogin,
@@ -23,7 +24,22 @@ Future<http.Response> createUser(
     headers: {"Content-Type": "application/json"},
     body: body
   );
-  print('${response.statusCode}');
-  print(response.body);
-  return response;
+  // print('${response.statusCode}');
+  // print(response.body);
+
+  dynamic resultData;
+
+  var responseBody = json.decode(response.body);
+  // print('response body em json');
+  // print(responseBody);
+
+  if (response.statusCode == 201) {
+      return responseBody;
+  }
+
+  return Future.error("error");
 }
+//   print('${response.statusCode}');
+//   print(response.body);
+//   return response;
+// }

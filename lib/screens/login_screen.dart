@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_bud_front/screens/profile_screen.dart';
 import 'package:gym_bud_front/screens/sign_up_screen.dart';
+import 'package:gym_bud_front/screens/sign_up_test.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -137,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+            context, MaterialPageRoute(builder: (context) => SignUpScreenTest()));
       },
       child: RichText(
         text: const TextSpan(
