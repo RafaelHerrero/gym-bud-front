@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_bud_front/screens/profile_screen.dart';
 import 'package:gym_bud_front/screens/sign_up_screen.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
+
+import '../utilities/api.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -11,6 +15,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
 
   Widget _buildEmailTF() {
     return Column(
@@ -25,13 +33,15 @@ class _LoginScreenState extends State<LoginScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: const TextField(
+          child: TextFormField(
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
+            validator: (value) => validateEmail(value),
+            style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
             ),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
@@ -60,13 +70,14 @@ class _LoginScreenState extends State<LoginScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: const TextField(
+          child: TextFormField(
             obscureText: true,
-            style: TextStyle(
+            controller: passwordController,
+            style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
             ),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
@@ -124,7 +135,25 @@ class _LoginScreenState extends State<LoginScreen> {
             },
           ),
         ),
-        onPressed: () => print("signUp button pressed"),
+        onPressed: () async {
+          if (formKey.currentState?.validate() == true) {
+            var response = await checkUserLogin(
+              emailController.text,
+              passwordController.text,
+            );
+
+            if (response != 'error') {
+              var userData = json.decode(response);
+
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => ProfileScreen(loggedUserId: userData['user_id'])
+              ));
+            }
+            else {
+              print('user already exists');
+            }
+          }
+        },
         child: const Text(
           'SIGN IN',
           style: buttonTextColor,
@@ -186,31 +215,34 @@ class _LoginScreenState extends State<LoginScreen> {
                     horizontal: 40.0,
                     vertical: 120.0,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Text(
+                          'Sign In',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'OpenSans',
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 30.0),
-                      _buildEmailTF(),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildPasswordTF(),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      _buildRememberMeCheckbox(),
-                      _buildSignInBtn(),
-                      _buildSignupBtn(),
-                    ],
+                        const SizedBox(height: 30.0),
+                        _buildEmailTF(),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        _buildPasswordTF(),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        _buildRememberMeCheckbox(),
+                        _buildSignInBtn(),
+                        _buildSignupBtn(),
+                      ],
+                    ),
                   ),
                 ),
               )

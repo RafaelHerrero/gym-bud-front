@@ -2,6 +2,32 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+const String baseUrl = 'http://127.0.0.1:8000';
+
+Future<String> checkUserLogin(
+    String userEmail,
+    String userPassword,
+  ) async {
+
+  Map loginData = {
+    'user_login': userEmail,
+    'user_password': userPassword
+  };
+
+  var body = json.encode(loginData);
+  const String finalUrl = '$baseUrl/users/login';
+
+  final response = await http.post(
+    Uri.parse(finalUrl),
+    headers: {'Content-Type': 'application/json'},
+    body: body
+  );
+  if (response.statusCode == 201) {
+    return response.body;
+  }
+  return "error";
+}
+
 Future<String> createUser(
     String userFirstName,
     String userLastName,
@@ -24,22 +50,8 @@ Future<String> createUser(
     headers: {"Content-Type": "application/json"},
     body: body
   );
-  // print('${response.statusCode}');
-  // print(response.body);
-
-  dynamic resultData;
-
-  var responseBody = json.decode(response.body);
-  // print('response body em json');
-  // print(responseBody);
-
   if (response.statusCode == 201) {
       return response.body;
   }
-
   return "error";
 }
-//   print('${response.statusCode}');
-//   print(response.body);
-//   return response;
-// }
