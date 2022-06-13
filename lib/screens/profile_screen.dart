@@ -8,7 +8,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    // final width = MediaQuery.of(context).size.width;
     final datetime = DateTime.now();
     final now = Jiffy(datetime);
 
@@ -17,13 +17,13 @@ class ProfileScreen extends StatelessWidget {
       return ClipRRect(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
         child: BottomNavigationBar(
-          backgroundColor: const Color.fromARGB(255, 69, 69, 70),
+          backgroundColor: const Color.fromARGB(255, 15, 18, 23),
           iconSize: 28,
           selectedIconTheme: const IconThemeData(
             color: Colors.blue,
           ),
           unselectedIconTheme: const IconThemeData(
-            color: Colors.black12,
+            color: Colors.white30,
           ),
           items: const [
             BottomNavigationBarItem(
@@ -31,19 +31,19 @@ class ProfileScreen extends StatelessWidget {
                   padding: EdgeInsets.only(top: 8.0),
                   child: Icon(Icons.home),
                 ),
-                label: ""),
+                label: "Home"),
             BottomNavigationBarItem(
                 icon: Padding(
                   padding: EdgeInsets.only(top: 8.0),
                   child: Icon(Icons.search),
                 ),
-                label: ""),
+                label: "Search"),
             BottomNavigationBarItem(
                 icon: Padding(
                   padding: EdgeInsets.only(top: 8.0),
                   child: Icon(Icons.person),
                 ),
-                label: ""),
+                label: "Profile"),
           ],
         ),
       );
@@ -52,7 +52,7 @@ class ProfileScreen extends StatelessWidget {
     Widget _userInformationBar(loggedUserId) {
       return Positioned(
         top: 0,
-        height: height * 0.26,
+        height: height * 0.20,
         left: 0,
         right: 0,
         child: ClipRRect(
@@ -60,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
               bottom: Radius.circular(40)
           ),
           child: Container(
-            color: const Color.fromARGB(255, 69, 69, 70),
+            color: const Color.fromARGB(255, 15, 18, 23),
             padding: const EdgeInsets.only(
               top: 40,
               left: 22,
@@ -73,13 +73,16 @@ class ProfileScreen extends StatelessWidget {
                 ListTile(
                   title: Text(
                     "${now.EEEE}, ${now.day} ${now.MMMM}",
+                    style: const TextStyle(
+                      color: Colors.white30,
+                    ),
                   ),
                   subtitle: Text(
                     loggedUserId,
                     style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w800,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                   ),
                 ),

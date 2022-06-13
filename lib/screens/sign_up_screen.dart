@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_bud_front/screens/profile_screen.dart';
+import 'package:gym_bud_front/utilities/functions.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
 
 import '../utilities/api.dart';

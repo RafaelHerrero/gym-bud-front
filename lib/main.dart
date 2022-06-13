@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gym_bud_front/screens/login_screen.dart';
-import 'package:gym_bud_front/screens/profile_screen.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
 
 void main() {

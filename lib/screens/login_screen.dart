@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_bud_front/screens/profile_screen.dart';
@@ -36,7 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: TextFormField(
             controller: emailController,
             keyboardType: TextInputType.emailAddress,
-            validator: (value) => validateEmail(value),
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',

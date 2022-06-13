@@ -19,12 +19,12 @@ const buttonTextColor = TextStyle(
 );
 
 final kBoxDecorationStyle = BoxDecoration(
-  color: const Color.fromARGB(255, 69, 69, 70),
+  color: const Color.fromARGB(255, 15, 18, 23),
   borderRadius: BorderRadius.circular(10.0),
 );
 
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-  primary: const Color.fromARGB(255, 69, 69, 70),
+  primary: const Color.fromARGB(255, 15, 18, 23),
   onPrimary: const Color.fromARGB(255, 53, 53, 54),
   onSurface: Colors.black12,
   fixedSize: const Size.fromHeight(50),
@@ -32,31 +32,7 @@ final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
       borderRadius: BorderRadius.all(Radius.circular(20))),
 );
 
-String? validateEmail(String? value) {
-  String pattern =
-      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-      r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-      r"{0,253}[a-zA-Z0-9])?)*$";
-  RegExp regex = RegExp(pattern);
-  if (value == null || value.isEmpty || !regex.hasMatch(value)) {
-    return 'Enter a valid email address';}
-  else {
-    return null;}
-}
 
-String? validatePassword(String value) {
-  RegExp regex =
-  RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-  if (value.isEmpty) {
-    return 'Please enter password';
-  } else {
-    if (!regex.hasMatch(value)) {
-      return 'Enter valid password';
-    } else {
-      return null;
-    }
-  }
-}
 
 // foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
 // overlayColor: MaterialStateProperty.resolveWith<Color?>(
