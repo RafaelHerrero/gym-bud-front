@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
+import '../utilities/constants.dart';
 import "string_extension.dart";
+
+import 'package:gym_bud_front/models/workout.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key, required this.loggedUserId, required this.loggedUserName}) : super(key: key);
@@ -19,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
       return ClipRRect(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
         child: BottomNavigationBar(
-          backgroundColor: const Color.fromARGB(255, 15, 18, 23),
+          backgroundColor: boxColor,
           iconSize: 28,
           selectedIconTheme: const IconThemeData(
             color: Colors.blue,
@@ -27,6 +30,7 @@ class ProfileScreen extends StatelessWidget {
           unselectedIconTheme: const IconThemeData(
             color: Colors.white30,
           ),
+          showUnselectedLabels: true,
           items: const [
             BottomNavigationBarItem(
                 icon: Padding(
@@ -62,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
               bottom: Radius.circular(40)
           ),
           child: Container(
-            color: const Color.fromARGB(255, 15, 18, 23),
+            color: boxColor,
             padding: const EdgeInsets.only(
               top: 40,
               left: 22,
@@ -95,15 +99,49 @@ class ProfileScreen extends StatelessWidget {
       );
     }
 
-    Widget _WorkoutsList(loggedUserId) {
+    Widget _workoutListTitle() {
+      return const Padding(
+        padding: EdgeInsets.only(bottom: 8, left: 32, right: 16),
+        child: Text(
+          "Workouts",
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+
+    Widget _workoutsList(loggedUserId) {
       return Positioned(
         top: height * 0.24,
         left: 0,
         right: 0,
         child: Container(
           height: height * 0.6,
-
-          // color: Colors.red,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _workoutListTitle(),
+              Expanded(
+                // child: Container(color: Colors.yellow,),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      for (int i = 0; i < workouts.length; i++)
+                        _WorkoutCard(workout: workouts[i])
+                    ],
+                  ),
+                ),
+              ),
+              // Expanded(child: child)
+            ],
+          ),
         ),
       );
     }
@@ -114,8 +152,44 @@ class ProfileScreen extends StatelessWidget {
       body: Stack(
         children: [
           _userInformationBar(loggedUserName),
-          _WorkoutsList(loggedUserId),
+          _workoutsList(loggedUserId),
         ],
+      ),
+    );
+  }
+}
+
+
+class _WorkoutCard extends StatelessWidget {
+  final Workout workout;
+  // ignore: unused_element
+  const _WorkoutCard({Key? key, required this.workout});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        left: 20,
+        right: 20,
+        bottom: 15
+      ),
+      constraints: const BoxConstraints(maxHeight: 25),
+      child: Material(
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        elevation: 4,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                children: [
+                  Text(workout.workoutName),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

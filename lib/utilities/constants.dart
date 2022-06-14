@@ -18,6 +18,8 @@ const buttonTextColor = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const boxColor = Color.fromARGB(255, 15, 18, 23);
+
 final kBoxDecorationStyle = BoxDecoration(
   color: const Color.fromARGB(255, 15, 18, 23),
   borderRadius: BorderRadius.circular(10.0),
