@@ -173,23 +173,28 @@ class _WorkoutCard extends StatelessWidget {
         right: 20,
         bottom: 15
       ),
-      constraints: const BoxConstraints(maxHeight: 25),
-      child: Material(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        elevation: 4,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                children: [
-                  Text(workout.workoutName),
-                ],
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Expanded(
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              child: Container(
+                color: boxColor,
+                height: 35,
+                child:
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0, top: 9),
+                    child: Text(
+                      workout.workoutName,
+                      style: kLabelStyle,
+                    ),
+                  ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
