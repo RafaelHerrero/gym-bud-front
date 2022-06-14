@@ -253,12 +253,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 lastNameController.text,
                 emailController.text,
                 passwordController.text);
+            var userData = json.decode(response);
 
-            if (response != 'error') {
-              var loggedUsedId = json.decode(response);
-
+            if (userData['error'] == '') {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => ProfileScreen(loggedUserId: loggedUsedId['user_id'],)
+                  builder: (context) => ProfileScreen(
+                    loggedUserId: userData['user_id'],
+                    loggedUserName: userData['first_firstname'],
+                  )
               ));
             }
             else {

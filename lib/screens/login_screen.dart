@@ -139,12 +139,15 @@ class _LoginScreenState extends State<LoginScreen> {
               emailController.text,
               passwordController.text,
             );
+            var userData = json.decode(response);
 
-            if (response != 'error') {
-              var userData = json.decode(response);
-
+            if (userData['error'] == '') {
+              print(userData);
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => ProfileScreen(loggedUserId: userData['user_id'])
+                  builder: (context) => ProfileScreen(
+                    loggedUserId: userData['user_id'],
+                    loggedUserName: userData['user_firstname'],
+                  )
               ));
             }
             else {

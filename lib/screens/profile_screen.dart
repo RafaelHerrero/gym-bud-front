@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
+import "string_extension.dart";
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key? key, required this.loggedUserId, required this.loggedUserName}) : super(key: key);
   final String loggedUserId;
-  const ProfileScreen({Key? key, required this.loggedUserId}) : super(key: key);
+  final String loggedUserName;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
       );
     }
 
-    Widget _userInformationBar(loggedUserId) {
+    Widget _userInformationBar(loggedUserName) {
       return Positioned(
         top: 0,
         height: height * 0.20,
@@ -78,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    loggedUserId,
+                    '$loggedUserName'.toTitleCase(),
                     style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w800,
@@ -93,12 +95,26 @@ class ProfileScreen extends StatelessWidget {
       );
     }
 
+    Widget _WorkoutsList(loggedUserId) {
+      return Positioned(
+        top: height * 0.24,
+        left: 0,
+        right: 0,
+        child: Container(
+          height: height * 0.6,
+
+          // color: Colors.red,
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: _bottomNavigationBar(),
       body: Stack(
         children: [
-          _userInformationBar(loggedUserId),
+          _userInformationBar(loggedUserName),
+          _WorkoutsList(loggedUserId),
         ],
       ),
     );

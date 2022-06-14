@@ -22,7 +22,7 @@ Future<String> checkUserLogin(
     headers: {'Content-Type': 'application/json'},
     body: body
   );
-  if (response.statusCode == 201) {
+  if (response.statusCode == 200) {
     return response.body;
   }
   return "error";
@@ -43,7 +43,7 @@ Future<String> createUser(
   };
 
   var body = json.encode(userData);
-  String baseUlr = 'http://127.0.0.1:8000/users/create_user';
+  String baseUlr = '$baseUrl/users/create';
 
   final response = await http.post(
     Uri.parse(baseUlr),
