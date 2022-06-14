@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gym_bud_front/screens/login_screen.dart';
+import 'package:gym_bud_front/screens/workout_screen.dart';
 import 'package:jiffy/jiffy.dart';
 import '../utilities/constants.dart';
 import "string_extension.dart";
@@ -180,17 +182,23 @@ class _WorkoutCard extends StatelessWidget {
           Expanded(
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
-              child: Container(
-                color: boxColor,
-                height: 35,
-                child:
-                  Padding(
+              child: InkWell(
+                onTap: () {
+                  print("pressed workout ${workout.workoutName}");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => WorkoutScreen()));
+                },
+                child: Container(
+                  color: boxColor,
+                  height: 38,
+                  child: Padding(
                     padding: const EdgeInsets.only(left: 20.0, top: 9),
                     child: Text(
                       workout.workoutName,
                       style: kLabelStyle,
                     ),
                   ),
+                ),
               ),
             ),
           ),
