@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gym_bud_front/screens/login_screen.dart';
 import 'package:gym_bud_front/screens/workout_screen.dart';
-import 'package:jiffy/jiffy.dart';
 import '../utilities/constants.dart';
 import "string_extension.dart";
-
+import 'package:intl/intl.dart';
 import 'package:gym_bud_front/models/workout.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -16,8 +15,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     // final width = MediaQuery.of(context).size.width;
-    final datetime = DateTime.now();
-    final now = Jiffy(datetime);
+    final today = DateTime.now();
 
 
     Widget _bottomNavigationBar() {
@@ -80,7 +78,7 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 ListTile(
                   title: Text(
-                    "${now.EEEE}, ${now.day} ${now.MMMM}",
+                    "${DateFormat("EEEE").format(today)}, ${DateFormat("d MMMM").format(today)}",
                     style: const TextStyle(
                       color: Colors.white30,
                     ),
@@ -136,7 +134,11 @@ class ProfileScreen extends StatelessWidget {
                         height: 20,
                       ),
                       for (int i = 0; i < workouts.length; i++)
-                        _WorkoutCard(workout: workouts[i])
+                        _WorkoutCard(
+                          workout: workouts[i],
+                          userId: loggedUserId,
+                          userName: loggedUserName,
+                        )
                     ],
                   ),
                 ),
@@ -164,8 +166,15 @@ class ProfileScreen extends StatelessWidget {
 
 class _WorkoutCard extends StatelessWidget {
   final Workout workout;
+  final String userId;
+  final String userName;
   // ignore: unused_element
-  const _WorkoutCard({Key? key, required this.workout});
+  const _WorkoutCard(
+      {Key? key,
+        required this.workout,
+        required this.userId,
+        required this.userName,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -178,15 +187,25 @@ class _WorkoutCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+        children: [
           Expanded(
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
               child: InkWell(
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
                 onTap: () {
                   print("pressed workout ${workout.workoutName}");
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => WorkoutScreen()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WorkoutScreen(
+                        userId: userId,
+                        userName: userName,
+                        workoutName: workout.workoutName,
+                        workoutId: workout.workoutId,
+                      ),
+                    ),
+                  );
                 },
                 child: Container(
                   color: boxColor,

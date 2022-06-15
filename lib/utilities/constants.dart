@@ -5,6 +5,12 @@ const kHintTextStyle = TextStyle(
   fontFamily: 'OpenSans',
 );
 
+const iconTextStyle = TextStyle(
+  color: Colors.white70,
+  fontWeight: FontWeight.w600,
+  fontSize: 16,
+);
+
 const kLabelStyle = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
