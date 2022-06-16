@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
             );
             var userData = json.decode(response);
 
-            if (userData['error'] == '') {
+            if (userData != 'error') {
               print(userData);
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => ProfileScreen(

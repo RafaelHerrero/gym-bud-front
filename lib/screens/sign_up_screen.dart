@@ -255,7 +255,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 passwordController.text);
             var userData = json.decode(response);
 
-            if (userData['error'] == '') {
+            if (userData != 'error') {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => ProfileScreen(
                     loggedUserId: userData['user_id'],

@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:gym_bud_front/screens/create_workout_screen.dart';
+import 'package:gym_bud_front/screens/login_screen.dart';
+import 'package:gym_bud_front/screens/profile_screen.dart';
 import 'package:gym_bud_front/screens/workout_screen.dart';
 import '../utilities/constants.dart';
 import '../utilities/string_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:gym_bud_front/models/workout.dart';
 
-class ProfileScreen extends StatefulWidget {
+class CreateWorkoutScreen extends StatefulWidget {
   final String loggedUserId;
   final String loggedUserName;
-  const ProfileScreen(
+  const CreateWorkoutScreen(
       {Key? key, required this.loggedUserId, required this.loggedUserName})
       : super(key: key);
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _CreateWorkoutScreenState createState() => _CreateWorkoutScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
 
   int _selectedIndex = 0;
 
@@ -53,9 +54,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           BottomNavigationBarItem(
               icon: Padding(
                 padding: EdgeInsets.only(top: 8.0),
-                child: Icon(Icons.add),
+                child: Icon(Icons.search),
               ),
-              label: "Add Workout"),
+              label: "Search"),
           BottomNavigationBarItem(
               icon: Padding(
                 padding: EdgeInsets.only(top: 8.0),
@@ -98,9 +99,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.white30,
                   ),
                 ),
-                subtitle: Text(
-                  '$loggedUserName'.toTitleCase(),
-                  style: const TextStyle(
+                subtitle: const Text(
+                  'Create Workout',
+                  style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.w800,
                     color: Colors.white,
@@ -169,7 +170,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context){
     final List _telas = [
       ProfileScreen(loggedUserId: widget.loggedUserId, loggedUserName: widget.loggedUserName),
-      CreateWorkoutScreen(loggedUserId: widget.loggedUserId, loggedUserName: widget.loggedUserName)
     ];
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery
@@ -180,9 +180,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: Colors.black,
       bottomNavigationBar: _bottomNavigationBar(),
       body: Stack(
-        children: [
-          _userInformationBar(widget.loggedUserName, height),
-          _workoutsList(widget.loggedUserId, widget.loggedUserName, height),
+        children: const [
+          Text("data")
         ],
       ),
     );
