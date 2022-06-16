@@ -264,7 +264,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ));
             }
             else {
-              print('user already exists');
+              print('Create User Error');
             }
           }
         },

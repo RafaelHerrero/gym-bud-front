@@ -6,223 +6,244 @@ import "string_extension.dart";
 import 'package:intl/intl.dart';
 import 'package:gym_bud_front/models/workout.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key, required this.loggedUserId, required this.loggedUserName}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
   final String loggedUserId;
   final String loggedUserName;
-
+  const ProfileScreen(
+      {Key? key, required this.loggedUserId, required this.loggedUserName})
+      : super(key: key);
   @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    // final width = MediaQuery.of(context).size.width;
-    final today = DateTime.now();
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+  int _selectedIndex = 0;
 
 
-    Widget _bottomNavigationBar() {
-      return ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
-        child: BottomNavigationBar(
-          backgroundColor: boxColor,
-          iconSize: 28,
-          selectedIconTheme: const IconThemeData(
-            color: Colors.blue,
-          ),
-          unselectedIconTheme: const IconThemeData(
-            color: Colors.white30,
-          ),
-          showUnselectedLabels: true,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Icon(Icons.home),
-                ),
-                label: "Home"),
-            BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Icon(Icons.search),
-                ),
-                label: "Search"),
-            BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Icon(Icons.person),
-                ),
-                label: "Profile"),
-          ],
+  final today = DateTime.now();
+
+  void _onTap(int index) async {
+    _selectedIndex = index;
+    setState(() {
+    });
+  }
+
+
+  Widget _bottomNavigationBar() {
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
+      child: BottomNavigationBar(
+        backgroundColor: boxColor,
+        iconSize: 28,
+        selectedIconTheme: const IconThemeData(
+          color: Colors.blue,
         ),
-      );
-    }
-
-    Widget _userInformationBar(loggedUserName) {
-      return Positioned(
-        top: 0,
-        height: height * 0.20,
-        left: 0,
-        right: 0,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.vertical(
-              bottom: Radius.circular(40)
-          ),
-          child: Container(
-            color: boxColor,
-            padding: const EdgeInsets.only(
-              top: 40,
-              left: 22,
-              right: 16,
-              bottom: 10,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ListTile(
-                  title: Text(
-                    "${DateFormat("EEEE").format(today)}, ${DateFormat("d MMMM").format(today)}",
-                    style: const TextStyle(
-                      color: Colors.white30,
-                    ),
-                  ),
-                  subtitle: Text(
-                    '$loggedUserName'.toTitleCase(),
-                    style: const TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+        unselectedIconTheme: const IconThemeData(
+          color: Colors.white30,
         ),
-      );
-    }
+        showUnselectedLabels: true,
+        items: const [
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Icon(Icons.home),
+              ),
+              label: "Home"),
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Icon(Icons.search),
+              ),
+              label: "Search"),
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Icon(Icons.person),
+              ),
+              label: "Profile"),
+        ],
+        onTap: _onTap,
+      ),
+    );
+  }
 
-    Widget _workoutListTitle() {
-      return const Padding(
-        padding: EdgeInsets.only(bottom: 8, left: 32, right: 16),
-        child: Text(
-          "Workouts",
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w800,
-            color: Colors.white,
-          ),
+  Widget _userInformationBar(loggedUserName, height) {
+    return Positioned(
+      top: 0,
+      height: height * 0.20,
+      left: 0,
+      right: 0,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.vertical(
+            bottom: Radius.circular(40)
         ),
-      );
-    }
-
-    Widget _workoutsList(loggedUserId) {
-      return Positioned(
-        top: height * 0.24,
-        left: 0,
-        right: 0,
         child: Container(
-          height: height * 0.6,
+          color: boxColor,
+          padding: const EdgeInsets.only(
+            top: 40,
+            left: 22,
+            right: 16,
+            bottom: 10,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _workoutListTitle(),
-              Expanded(
-                // child: Container(color: Colors.yellow,),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      for (int i = 0; i < workouts.length; i++)
-                        _WorkoutCard(
-                          workout: workouts[i],
-                          userId: loggedUserId,
-                          userName: loggedUserName,
-                        )
-                    ],
+              ListTile(
+                title: Text(
+                  "${DateFormat("EEEE").format(today)}, ${DateFormat("d MMMM")
+                      .format(today)}",
+                  style: const TextStyle(
+                    color: Colors.white30,
+                  ),
+                ),
+                subtitle: Text(
+                  '$loggedUserName'.toTitleCase(),
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
                   ),
                 ),
               ),
-              // Expanded(child: child)
             ],
           ),
         ),
-      );
-    }
+      ),
+    );
+  }
 
+  Widget _workoutListTitle() {
+    return const Padding(
+      padding: EdgeInsets.only(bottom: 8, left: 32, right: 16),
+      child: Text(
+        "Workouts",
+        style: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.w800,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  Widget _workoutsList(loggedUserId, loggedUserName, height) {
+    return Positioned(
+      top: height * 0.24,
+      left: 0,
+      right: 0,
+      child: Container(
+        height: height * 0.6,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _workoutListTitle(),
+            Expanded(
+              // child: Container(color: Colors.yellow,),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    for (int i = 0; i < workouts.length; i++)
+                      _WorkoutCard(
+                        workout: workouts[i],
+                        userId: loggedUserId,
+                        userName: loggedUserName,
+                      )
+                  ],
+                ),
+              ),
+            ),
+            // Expanded(child: child)
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context){
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height;
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: _bottomNavigationBar(),
       body: Stack(
         children: [
-          _userInformationBar(loggedUserName),
-          _workoutsList(loggedUserId),
+          _userInformationBar(widget.loggedUserName, height),
+          _workoutsList(widget.loggedUserId, widget.loggedUserName, height),
         ],
       ),
     );
-  }
-}
+  }}
+
 
 
 class _WorkoutCard extends StatelessWidget {
-  final Workout workout;
-  final String userId;
-  final String userName;
-  // ignore: unused_element
-  const _WorkoutCard(
-      {Key? key,
-        required this.workout,
-        required this.userId,
-        required this.userName,
-      });
+final Workout workout;
+final String userId;
+final String userName;
+// ignore: unused_element
+const _WorkoutCard(
+    {Key? key,
+      required this.workout,
+      required this.userId,
+      required this.userName,
+    });
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-        left: 20,
-        right: 20,
-        bottom: 15
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: ClipRRect(
+@override
+Widget build(BuildContext context) {
+  return Container(
+    margin: const EdgeInsets.only(
+      left: 20,
+      right: 20,
+      bottom: 15
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            child: InkWell(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
-              child: InkWell(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                onTap: () {
-                  print("pressed workout ${workout.workoutName}");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => WorkoutScreen(
-                        userId: userId,
-                        userName: userName,
-                        workoutName: workout.workoutName,
-                        workoutId: workout.workoutId,
-                      ),
+              onTap: () {
+                print("pressed workout ${workout.workoutName}");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WorkoutScreen(
+                      userId: userId,
+                      userName: userName,
+                      workoutName: workout.workoutName,
+                      workoutId: workout.workoutId,
                     ),
-                  );
-                },
-                child: Container(
-                  color: boxColor,
-                  height: 38,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0, top: 9),
-                    child: Text(
-                      workout.workoutName,
-                      style: kLabelStyle,
-                    ),
+                  ),
+                );
+              },
+              child: Container(
+                color: boxColor,
+                height: 38,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0, top: 9),
+                  child: Text(
+                    workout.workoutName,
+                    style: kLabelStyle,
                   ),
                 ),
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 }
