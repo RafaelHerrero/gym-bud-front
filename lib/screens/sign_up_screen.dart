@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gym_bud_front/screens/profile_screen.dart';
+import 'package:gym_bud_front/screens/user_screen.dart';
 import 'package:gym_bud_front/utilities/functions.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
 
@@ -257,7 +256,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
             if (userData != 'error') {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => ProfileScreen(
+                  builder: (context) => UserScreen(
                     loggedUserId: userData['user_id'],
                     loggedUserName: userData['user_firstname'],
                   )
