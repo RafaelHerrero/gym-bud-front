@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gym_bud_front/screens/workout_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:gym_bud_front/models/workout.dart';
+import '../../utilities/common_widgets.dart';
 import '../../utilities/constants.dart';
 import '../../utilities/string_extension.dart';
 
@@ -18,53 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  final today = DateTime.now();
-
-  Widget _userInformationBar(loggedUserName, height) {
-    return Positioned(
-      top: 0,
-      height: height * 0.20,
-      left: 0,
-      right: 0,
-      child: ClipRRect(
-        borderRadius: const BorderRadius.vertical(
-            bottom: Radius.circular(40)
-        ),
-        child: Container(
-          color: boxColor,
-          padding: const EdgeInsets.only(
-            top: 40,
-            left: 22,
-            right: 16,
-            bottom: 10,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListTile(
-                title: Text(
-                  "${DateFormat("EEEE").format(today)}, ${DateFormat("d MMMM")
-                      .format(today)}",
-                  style: const TextStyle(
-                    color: Colors.white30,
-                  ),
-                ),
-                subtitle: Text(
-                  '$loggedUserName'.toTitleCase(),
-                  style: const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
   Widget _workoutListTitle() {
     return const Padding(
@@ -125,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .height;
     return Stack(
       children: [
-        _userInformationBar(widget.loggedUserName, height),
+        topInformationBar(height, widget.loggedUserName),
         _workoutsList(widget.loggedUserId, widget.loggedUserName, height),
       ],
     );

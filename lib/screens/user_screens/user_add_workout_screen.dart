@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../utilities/constants.dart';
-import 'package:intl/intl.dart';
+import '../../utilities/common_widgets.dart';
 
 class CreateWorkoutScreen extends StatefulWidget {
   final String loggedUserId;
@@ -14,56 +13,6 @@ class CreateWorkoutScreen extends StatefulWidget {
 
 class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
 
-
-
-  final today = DateTime.now();
-
-
-  Widget _userInformationBar(height) {
-    return Positioned(
-      top: 0,
-      height: height * 0.20,
-      left: 0,
-      right: 0,
-      child: ClipRRect(
-        borderRadius: const BorderRadius.vertical(
-            bottom: Radius.circular(40)
-        ),
-        child: Container(
-          color: boxColor,
-          padding: const EdgeInsets.only(
-            top: 40,
-            left: 22,
-            right: 16,
-            bottom: 10,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListTile(
-                title: Text(
-                  "${DateFormat("EEEE").format(today)}, ${DateFormat("d MMMM")
-                      .format(today)}",
-                  style: const TextStyle(
-                    color: Colors.white30,
-                  ),
-                ),
-                subtitle: const Text(
-                  'Create Workout',
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context){
     final height = MediaQuery
@@ -74,7 +23,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          _userInformationBar(height)
+          topInformationBar(height, "Add Workout Screen")
         ],
       ),
     );
