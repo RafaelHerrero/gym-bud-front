@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:gym_bud_front/screens/workout_screen.dart';
 import 'package:gym_bud_front/models/workout.dart';
 import '../../api/workouts_api.dart';
+import '../../models/models.dart';
 import '../../utilities/common_widgets.dart';
 import '../../utilities/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   final String loggedUserId;
   final String loggedUserName;
-  // final List userWorkouts;
+  final List workoutList;
 
   const HomeScreen(
       {Key? key,
         required this.loggedUserId,
         required this.loggedUserName,
-        // required this.userWorkouts
+        required this.workoutList
       })
       : super(key: key);
 
@@ -23,6 +24,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  // List workoutList = [];
+
+  // void getWorkoutList() async {
+  //   Future<List> _workoutList = getUserActiveWorkout(widget.loggedUserId);
+  //   workoutList = await _workoutList;
+
+
+    // var outlist = await _workoutList;
+    // setState(() {
+    //   workoutList = outlist;
+    // });
+
+
+
+  // }
 
   Widget _workoutListTitle() {
     return const Padding(
@@ -38,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _workoutsList(loggedUserId, loggedUserName, height) {
+  Widget _workoutsList(loggedUserId, loggedUserName, height, userWorkouts) {
     return Positioned(
       top: height * 0.24,
       left: 0,
@@ -58,9 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    for (int i = 0; i < workouts.length; i++)
+                    for (int i = 0; i < userWorkouts.length; i++)
                       _WorkoutCard(
-                        workout: workouts[i],
+                        workout: userWorkouts[i],
                         userId: loggedUserId,
                         userName: loggedUserName,
                       )
@@ -77,11 +94,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // getWorkoutList();
+    // print(workoutList);
     final height = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         topInformationBar(height, widget.loggedUserName),
-        _workoutsList(widget.loggedUserId, widget.loggedUserName, height),
+        _workoutsList(widget.loggedUserId, widget.loggedUserName, height, widget.workoutList),
       ],
     );
   }
@@ -89,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 class _WorkoutCard extends StatelessWidget {
-  final Workout workout;
+  final workout;
   final String userId;
   final String userName;
 
@@ -119,7 +138,7 @@ class _WorkoutCard extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 onTap: () {
                   // print(getUserActiveWorkout(userId));
-                  print("pressed workout ${workout.workoutName}");
+                  print("pressed workout ${workout["workout_id"]}");
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -127,8 +146,8 @@ class _WorkoutCard extends StatelessWidget {
                           WorkoutScreen(
                             userId: userId,
                             userName: userName,
-                            workoutName: workout.workoutName,
-                            workoutId: workout.workoutId,
+                            workoutName: workout["workout_id"],
+                            workoutId: workout["workout_id"],
                           ),
                     ),
                   );
@@ -139,7 +158,7 @@ class _WorkoutCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20.0, top: 9),
                     child: Text(
-                      workout.workoutName,
+                      workout["workout_id"],
                       style: kLabelStyle,
                     ),
                   ),

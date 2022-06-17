@@ -13,13 +13,19 @@ class UserScreen extends StatefulWidget {
   const UserScreen(
       {Key? key, required this.loggedUserId, required this.loggedUserName})
       : super(key: key);
+
   @override
   _UserScreenState createState() => _UserScreenState();
+
+
+
 }
 
 class _UserScreenState extends State<UserScreen> {
 
   int _selectedIndex = 0;
+
+  List workoutList = [];
 
 
   final today = DateTime.now();
@@ -30,10 +36,10 @@ class _UserScreenState extends State<UserScreen> {
     });
   }
 
-  // void getWorkoutList() async {
-  //   Future<List> workoutsListString = getUserActiveWorkout(widget.loggedUserId);
-  //   var workoutList = await workoutsListString;
-  // }
+  void getWorkoutList() async {
+    Future<List> _workoutList = getUserActiveWorkout(widget.loggedUserId);
+    workoutList = await _workoutList;
+  }
 
 
   Widget _bottomNavigationBar() {
@@ -76,11 +82,14 @@ class _UserScreenState extends State<UserScreen> {
   }
 
 
+
+
   @override
   Widget build(BuildContext context) {
-    // var workoutsListString = await getUserActiveWorkout(widget.loggedUserId);
+    getWorkoutList();
+    print(workoutList);
     final List screens = [
-      HomeScreen(loggedUserId: widget.loggedUserId, loggedUserName: widget.loggedUserName),
+      HomeScreen(loggedUserId: widget.loggedUserId, loggedUserName: widget.loggedUserName, workoutList: workoutList,),
       CreateWorkoutScreen(loggedUserId: widget.loggedUserId, loggedUserName: widget.loggedUserName),
       ProfileScreen()
     ];
