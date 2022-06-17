@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:gym_bud_front/screens/workout_screen.dart';
-import 'package:intl/intl.dart';
 import 'package:gym_bud_front/models/workout.dart';
+import '../../api/workouts_api.dart';
 import '../../utilities/common_widgets.dart';
 import '../../utilities/constants.dart';
-import '../../utilities/string_extension.dart';
 
 class HomeScreen extends StatefulWidget {
   final String loggedUserId;
   final String loggedUserName;
+  // final List userWorkouts;
 
   const HomeScreen(
-      {Key? key, required this.loggedUserId, required this.loggedUserName})
+      {Key? key,
+        required this.loggedUserId,
+        required this.loggedUserName,
+        // required this.userWorkouts
+      })
       : super(key: key);
 
   @override
@@ -73,10 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final height = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         topInformationBar(height, widget.loggedUserName),
@@ -117,6 +118,7 @@ class _WorkoutCard extends StatelessWidget {
               child: InkWell(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 onTap: () {
+                  // print(getUserActiveWorkout(userId));
                   print("pressed workout ${workout.workoutName}");
                   Navigator.push(
                     context,

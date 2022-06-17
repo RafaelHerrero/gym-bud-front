@@ -5,7 +5,7 @@ import 'package:gym_bud_front/screens/user_screen.dart';
 import 'package:gym_bud_front/screens/sign_up_screen.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
 
-import '../utilities/api.dart';
+import '../api/user_api.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -34,6 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
           height: 60.0,
           child: TextFormField(
             controller: emailController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please Enter Some Text';
+              }
+              else {
+                return null;
+              }
+            },
             keyboardType: TextInputType.emailAddress,
             style: const TextStyle(
               color: Colors.white,
@@ -71,6 +79,14 @@ class _LoginScreenState extends State<LoginScreen> {
           child: TextFormField(
             obscureText: true,
             controller: passwordController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please Enter Some Text';
+              }
+              else {
+                return null;
+              }
+            },
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',

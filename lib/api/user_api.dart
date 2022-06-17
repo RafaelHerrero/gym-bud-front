@@ -2,12 +2,9 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-const String baseUrl = 'http://127.0.0.1:42069';
+import '../utilities/constants.dart';
 
-Future<String> checkUserLogin(
-    String userEmail,
-    String userPassword,
-  ) async {
+Future<String> checkUserLogin(String userEmail, String userPassword,) async {
 
   Map loginData = {
     'user_login': userEmail,
@@ -15,7 +12,7 @@ Future<String> checkUserLogin(
   };
 
   var body = json.encode(loginData);
-  const String finalUrl = '$baseUrl/users/login';
+  const String finalUrl = '$baseUrl/user/login';
 
   final response = await http.post(
     Uri.parse(finalUrl),
@@ -32,8 +29,7 @@ Future<String> createUser(
     String userFirstName,
     String userLastName,
     String userLogin,
-    String userPassword
-    ) async {
+    String userPassword) async {
 
   Map userData = {
     'user_firstname': userFirstName,
@@ -43,7 +39,7 @@ Future<String> createUser(
   };
 
   var body = json.encode(userData);
-  String baseUlr = '$baseUrl/users/create';
+  String baseUlr = '$baseUrl/user/create';
 
   final response = await http.post(
     Uri.parse(baseUlr),

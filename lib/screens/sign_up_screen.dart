@@ -5,7 +5,7 @@ import 'package:gym_bud_front/screens/user_screen.dart';
 import 'package:gym_bud_front/utilities/functions.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
 
-import '../utilities/api.dart';
+import '../api/user_api.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override

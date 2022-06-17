@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gym_bud_front/screens/user_screens/user_add_workout_screen.dart';
 import 'package:gym_bud_front/screens/user_screens/user_home_screen.dart';
 import 'package:gym_bud_front/screens/user_screens/user_profile_screen.dart';
+import '../api/workouts_api.dart';
 import '../utilities/constants.dart';
 
 class UserScreen extends StatefulWidget {
@@ -26,6 +29,11 @@ class _UserScreenState extends State<UserScreen> {
       _selectedIndex = index;
     });
   }
+
+  // void getWorkoutList() async {
+  //   Future<List> workoutsListString = getUserActiveWorkout(widget.loggedUserId);
+  //   var workoutList = await workoutsListString;
+  // }
 
 
   Widget _bottomNavigationBar() {
@@ -69,8 +77,9 @@ class _UserScreenState extends State<UserScreen> {
 
 
   @override
-  Widget build(BuildContext context){
-    final List _screens = [
+  Widget build(BuildContext context) {
+    // var workoutsListString = await getUserActiveWorkout(widget.loggedUserId);
+    final List screens = [
       HomeScreen(loggedUserId: widget.loggedUserId, loggedUserName: widget.loggedUserName),
       CreateWorkoutScreen(loggedUserId: widget.loggedUserId, loggedUserName: widget.loggedUserName),
       ProfileScreen()
@@ -78,6 +87,6 @@ class _UserScreenState extends State<UserScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: _bottomNavigationBar(),
-      body: _screens[_selectedIndex],
+      body: screens[_selectedIndex],
     );
   }}
