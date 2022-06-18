@@ -9,14 +9,14 @@ import '../../utilities/constants.dart';
 class HomeScreen extends StatefulWidget {
   final String loggedUserId;
   final String loggedUserName;
-  // final List workoutList;
+  final List<ExercisePlanWorkouts>? workoutList;
 
-  const HomeScreen({
-    Key? key,
-    required this.loggedUserId,
-    required this.loggedUserName,
-    // required this.workoutList
-  }) : super(key: key);
+  const HomeScreen(
+      {Key? key,
+      required this.loggedUserId,
+      required this.loggedUserName,
+      required this.workoutList})
+      : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -28,11 +28,18 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   bool get wantKeepAlive => true;
-  List workoutList = [];
 
-  void getWorkoutList() async {
-    var _workoutList = getUserActiveWorkout(widget.loggedUserId);
-    workoutList = await _workoutList;
+  // late List<ExercisePlanWorkouts> workoutList = [];
+
+  // void getWorkoutList() async {
+  //   workoutList =
+  //       (await ApiWorkout().getUserActiveWorkout(widget.loggedUserId))!;
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    // getWorkoutList();
   }
 
   Widget _workoutListTitle() {
@@ -69,9 +76,9 @@ class _HomeScreenState extends State<HomeScreen>
                     const SizedBox(
                       height: 20,
                     ),
-                    for (int i = 0; i < userWorkouts.length; i++)
+                    for (int i = 0; i < widget.workoutList!.length; i++)
                       _WorkoutCard(
-                        workout: userWorkouts[i],
+                        workout: widget.workoutList![i],
                         userId: loggedUserId,
                         userName: loggedUserName,
                       )
@@ -89,21 +96,21 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    getWorkoutList();
-    print(workoutList);
+    // getWorkoutList();
+    // print(workoutList);
     final height = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         topInformationBar(height, widget.loggedUserName),
         _workoutsList(widget.loggedUserId, widget.loggedUserName, height,
-            getWorkoutList()),
+            widget.workoutList),
       ],
     );
   }
 }
 
 class _WorkoutCard extends StatelessWidget {
-  final workout;
+  final ExercisePlanWorkouts workout;
   final String userId;
   final String userName;
 
@@ -130,15 +137,15 @@ class _WorkoutCard extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 onTap: () {
                   // print(getUserActiveWorkout(userId));
-                  print("pressed workout ${workout["workout_id"]}");
+                  print("pressed workout ${workout.workoutId}");
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => WorkoutScreen(
                         userId: userId,
                         userName: userName,
-                        workoutName: workout["workout_id"],
-                        workoutId: workout["workout_id"],
+                        workoutName: workout.workoutId,
+                        workoutId: workout.workoutId,
                       ),
                     ),
                   );
@@ -149,7 +156,7 @@ class _WorkoutCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20.0, top: 9),
                     child: Text(
-                      workout["workout_id"],
+                      workout.workoutId,
                       style: kLabelStyle,
                     ),
                   ),
