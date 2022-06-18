@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gym_bud_front/screens/workout_screen.dart';
-import 'package:gym_bud_front/models/workout.dart';
-import '../../api/workouts_api.dart';
-import '../../models/exercise_plan_workout_model.dart';
-import '../../utilities/common_widgets.dart';
-import '../../utilities/constants.dart';
+import 'package:gym_bud_front/screens/workout_screens/workout_screen.dart';
+import 'package:gym_bud_front/models/workout_plan_workout_model.dart';
+import 'package:gym_bud_front/utilities/common_widgets.dart';
+import 'package:gym_bud_front/utilities/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   final String loggedUserId;
   final String loggedUserName;
-  final List<ExercisePlanWorkouts>? workoutList;
+  final List<WorkoutPlanWorkouts>? workoutList;
 
   const HomeScreen(
       {Key? key,
@@ -29,17 +27,9 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   bool get wantKeepAlive => true;
 
-  // late List<ExercisePlanWorkouts> workoutList = [];
-
-  // void getWorkoutList() async {
-  //   workoutList =
-  //       (await ApiWorkout().getUserActiveWorkout(widget.loggedUserId))!;
-  // }
-
   @override
   void initState() {
     super.initState();
-    // getWorkoutList();
   }
 
   Widget _workoutListTitle() {
@@ -110,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen>
 }
 
 class _WorkoutCard extends StatelessWidget {
-  final ExercisePlanWorkouts workout;
+  final WorkoutPlanWorkouts workout;
   final String userId;
   final String userName;
 

@@ -1,11 +1,11 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_bud_front/screens/user_screen.dart';
 import 'package:gym_bud_front/screens/sign_up_screen.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
-
-import '../api/user_api.dart';
+import 'package:gym_bud_front/api/user_api.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -37,8 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please Enter Some Text';
-              }
-              else {
+              } else {
                 return null;
               }
             },
@@ -82,8 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please Enter Some Text';
-              }
-              else {
+              } else {
                 return null;
               }
             },
@@ -158,15 +156,15 @@ class _LoginScreenState extends State<LoginScreen> {
             var userData = json.decode(response);
 
             if (userData != 'error') {
-              print(userData);
+              if (kDebugMode) {
+                print(userData);
+              }
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => UserScreen(
-                    loggedUserId: userData['user_id'],
-                    loggedUserName: userData['user_firstname'],
-                  )
-              ));
-            }
-            else {
+                        loggedUserId: userData['user_id'],
+                        loggedUserName: userData['user_firstname'],
+                      )));
+            } else {
               print('user already exists');
             }
           }

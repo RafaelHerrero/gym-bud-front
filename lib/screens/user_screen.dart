@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:gym_bud_front/models/exercise_plan_workout_model.dart';
-import 'package:gym_bud_front/screens/user_screens/user_add_workout_screen.dart';
+import 'package:gym_bud_front/models/workout_plan_workout_model.dart';
+import 'package:gym_bud_front/screens/user_screens/user_create_workout_screen.dart';
 import 'package:gym_bud_front/screens/user_screens/user_home_screen.dart';
 import 'package:gym_bud_front/screens/user_screens/user_profile_screen.dart';
-import '../api/workouts_api.dart';
-import '../utilities/constants.dart';
+import 'package:gym_bud_front/api/workouts_api.dart';
+import 'package:gym_bud_front/utilities/constants.dart';
 
 class UserScreen extends StatefulWidget {
   final String loggedUserId;
@@ -21,7 +20,7 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen> {
   int _selectedIndex = 0;
-  late List<ExercisePlanWorkouts>? workoutList = [];
+  late List<WorkoutPlanWorkouts>? workoutList = [];
   final today = DateTime.now();
 
   void getWorkoutList() async {
@@ -84,7 +83,7 @@ class _UserScreenState extends State<UserScreen> {
                 padding: EdgeInsets.only(top: 8.0),
                 child: Icon(Icons.add),
               ),
-              label: "Add Workout"),
+              label: "Add"),
           BottomNavigationBarItem(
               icon: Padding(
                 padding: EdgeInsets.only(top: 8.0),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 const String baseUrl = 'http://127.0.0.1:42069';
 
 const kHintTextStyle = TextStyle(

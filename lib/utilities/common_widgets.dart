@@ -10,9 +10,7 @@ Widget topInformationBar(height, barTitle) {
     left: 0,
     right: 0,
     child: ClipRRect(
-      borderRadius: const BorderRadius.vertical(
-          bottom: Radius.circular(40)
-      ),
+      borderRadius: const BorderRadius.vertical(bottom: Radius.circular(40)),
       child: Container(
         color: boxColor,
         padding: const EdgeInsets.only(
@@ -26,8 +24,7 @@ Widget topInformationBar(height, barTitle) {
           children: [
             ListTile(
               title: Text(
-                "${DateFormat("EEEE").format(today)}, ${DateFormat("d MMMM")
-                    .format(today)}",
+                "${DateFormat("EEEE").format(today)}, ${DateFormat("d MMMM").format(today)}",
                 style: const TextStyle(
                   color: Colors.white30,
                 ),
@@ -58,7 +55,7 @@ Widget goBackOnePage(BuildContext context) {
         size: 40,
       ),
       onPressed: () {
-        Navigator.of(context).pop();
+        Navigator.pop(context);
       },
     ),
   );

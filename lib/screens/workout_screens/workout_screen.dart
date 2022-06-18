@@ -1,26 +1,23 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gym_bud_front/models/workout.dart';
 import 'package:intl/intl.dart';
 
-import '../models/exercises.dart';
-import '../utilities/common_widgets.dart';
-import '../utilities/constants.dart';
+import 'package:gym_bud_front/models/exercises.dart';
+import 'package:gym_bud_front/utilities/common_widgets.dart';
+import 'package:gym_bud_front/utilities/constants.dart';
 
 class WorkoutScreen extends StatelessWidget {
-  const WorkoutScreen(
-      {Key? key,
-        required this.userId,
-        required this.userName,
-        required this.workoutName,
-        required this.workoutId,
-      }) : super(key: key);
+  const WorkoutScreen({
+    Key? key,
+    required this.userId,
+    required this.userName,
+    required this.workoutName,
+    required this.workoutId,
+  }) : super(key: key);
 
   final String userId;
   final String userName;
   final String workoutName;
   final String workoutId;
-
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +28,12 @@ class WorkoutScreen extends StatelessWidget {
         title: Text(
           "${DateFormat("EEEE").format(today)}, ${DateFormat("d MMMM").format(today)}",
           style: const TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 18,
-            color: Colors.white
-          ),
+              fontWeight: FontWeight.w400, fontSize: 18, color: Colors.white),
         ),
         subtitle: Text(
           workoutName,
           style: const TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 25,
-              color: Colors.white
-          ),
+              fontWeight: FontWeight.w800, fontSize: 25, color: Colors.white),
         ),
         trailing: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,9 +41,13 @@ class WorkoutScreen extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: const [
-                Icon(Icons.access_time,
-                color: Colors.white30,),
-                SizedBox(width: 5,),
+                Icon(
+                  Icons.access_time,
+                  color: Colors.white30,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
                 Text(
                   "60 mins",
                   style: iconTextStyle,
@@ -66,7 +61,9 @@ class WorkoutScreen extends StatelessWidget {
                   Icons.shutter_speed,
                   color: Colors.white30,
                 ),
-                SizedBox(width: 5,),
+                SizedBox(
+                  width: 5,
+                ),
                 Text(
                   "Easy",
                   style: iconTextStyle,
@@ -111,7 +108,9 @@ class WorkoutScreen extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            const SizedBox(width: 10,),
+            const SizedBox(
+              width: 10,
+            ),
             Text(
               '${exercises.reps} reps',
               style: const TextStyle(
@@ -120,7 +119,9 @@ class WorkoutScreen extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            const SizedBox(width: 10,),
+            const SizedBox(
+              width: 10,
+            ),
             Text(
               exercises.description,
               style: const TextStyle(
