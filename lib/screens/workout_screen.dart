@@ -4,6 +4,7 @@ import 'package:gym_bud_front/models/workout.dart';
 import 'package:intl/intl.dart';
 
 import '../models/exercises.dart';
+import '../utilities/common_widgets.dart';
 import '../utilities/constants.dart';
 
 class WorkoutScreen extends StatelessWidget {
@@ -24,23 +25,6 @@ class WorkoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final today = DateTime.now();
-
-
-    Widget _goBackOnePage(BuildContext context) {
-      return Padding(
-        padding: const EdgeInsets.only(top: 16.0),
-        child: IconButton(
-          icon: const Icon(
-            Icons.close,
-            color: Colors.white,
-            size: 40,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      );
-    }
 
     Widget _workoutTitle(workoutName) {
       return ListTile(
@@ -160,7 +144,7 @@ class WorkoutScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              _goBackOnePage(context),
+              goBackOnePage(context),
               _workoutTitle(workoutName),
               for (int i = 0; i < fullUpperBody.length; i++)
                 _workoutsDescriptions(fullUpperBody[i])

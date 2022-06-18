@@ -2,44 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:gym_bud_front/screens/workout_screen.dart';
 import 'package:gym_bud_front/models/workout.dart';
 import '../../api/workouts_api.dart';
-import '../../models/models.dart';
+import '../../models/exercise_plan_workout_model.dart';
 import '../../utilities/common_widgets.dart';
 import '../../utilities/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   final String loggedUserId;
   final String loggedUserName;
-  final List workoutList;
+  // final List workoutList;
 
-  const HomeScreen(
-      {Key? key,
-        required this.loggedUserId,
-        required this.loggedUserName,
-        required this.workoutList
-      })
-      : super(key: key);
+  const HomeScreen({
+    Key? key,
+    required this.loggedUserId,
+    required this.loggedUserName,
+    // required this.workoutList
+  }) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with AutomaticKeepAliveClientMixin {
+  int counter = 0;
 
-  // List workoutList = [];
+  @override
+  bool get wantKeepAlive => true;
+  List workoutList = [];
 
-  // void getWorkoutList() async {
-  //   Future<List> _workoutList = getUserActiveWorkout(widget.loggedUserId);
-  //   workoutList = await _workoutList;
-
-
-    // var outlist = await _workoutList;
-    // setState(() {
-    //   workoutList = outlist;
-    // });
-
-
-
-  // }
+  void getWorkoutList() async {
+    var _workoutList = getUserActiveWorkout(widget.loggedUserId);
+    workoutList = await _workoutList;
+  }
 
   Widget _workoutListTitle() {
     return const Padding(
@@ -94,18 +88,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // getWorkoutList();
-    // print(workoutList);
+    super.build(context);
+    getWorkoutList();
+    print(workoutList);
     final height = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         topInformationBar(height, widget.loggedUserName),
-        _workoutsList(widget.loggedUserId, widget.loggedUserName, height, widget.workoutList),
+        _workoutsList(widget.loggedUserId, widget.loggedUserName, height,
+            getWorkoutList()),
       ],
     );
   }
 }
-
 
 class _WorkoutCard extends StatelessWidget {
   final workout;
@@ -113,7 +108,8 @@ class _WorkoutCard extends StatelessWidget {
   final String userName;
 
 // ignore: unused_element
-  const _WorkoutCard({Key? key,
+  const _WorkoutCard({
+    Key? key,
     required this.workout,
     required this.userId,
     required this.userName,
@@ -122,11 +118,7 @@ class _WorkoutCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 15
-      ),
+      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -142,13 +134,12 @@ class _WorkoutCard extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          WorkoutScreen(
-                            userId: userId,
-                            userName: userName,
-                            workoutName: workout["workout_id"],
-                            workoutId: workout["workout_id"],
-                          ),
+                      builder: (context) => WorkoutScreen(
+                        userId: userId,
+                        userName: userName,
+                        workoutName: workout["workout_id"],
+                        workoutId: workout["workout_id"],
+                      ),
                     ),
                   );
                 },

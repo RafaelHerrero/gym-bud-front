@@ -48,4 +48,18 @@ Widget topInformationBar(height, barTitle) {
   );
 }
 
-
+Widget goBackOnePage(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.only(top: 16.0),
+    child: IconButton(
+      icon: const Icon(
+        Icons.close,
+        color: Colors.white,
+        size: 40,
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    ),
+  );
+}
