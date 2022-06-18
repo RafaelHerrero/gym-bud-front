@@ -13,16 +13,12 @@ class CreateWorkoutScreen extends StatefulWidget {
   const CreateWorkoutScreen(
       {Key? key, required this.loggedUserId, required this.loggedUserName})
       : super(key: key);
+
   @override
   _CreateWorkoutScreenState createState() => _CreateWorkoutScreenState();
 }
 
 class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
-  List addButtons = [
-    {"button_text": "Add Workout Plan", "button_page": AddWorkoutPlanScreen()},
-    {"button_text": "Add Workout", "button_page": AddWorkoutScreen()},
-    {"button_text": "Add Exercise", "button_page": AddExerciseScreen()},
-  ];
   // Map addButtonsMap = {
   //   'Add Woraakout': AddWorkoutScreen(),
   //   'Add Workout Plan': AddWorkoutPlanScreen(),
@@ -61,7 +57,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     );
   }
 
-  Widget addButton(height) {
+  Widget addButton(height, addButtons) {
     return Positioned(
       top: height * 0.24,
       left: 0,
@@ -81,13 +77,21 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List addButtons = [
+      {
+        "button_text": "Add Workout Plan",
+        "button_page": AddWorkoutPlanScreen(loggedUserId: widget.loggedUserId)
+      },
+      {"button_text": "Add Workout", "button_page": AddWorkoutScreen()},
+      {"button_text": "Add Exercise", "button_page": AddExerciseScreen()},
+    ];
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
         children: [
           topInformationBar(height, "Add Workout Screen"),
-          addButton(height)
+          addButton(height, addButtons),
         ],
       ),
     );

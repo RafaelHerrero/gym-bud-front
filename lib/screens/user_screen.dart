@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gym_bud_front/models/workout_plan_workout_model.dart';
-import 'package:gym_bud_front/screens/user_screens/user_create_workout_screen.dart';
+import 'package:gym_bud_front/screens/user_screens/user_create_workout_area.dart';
 import 'package:gym_bud_front/screens/user_screens/user_home_screen.dart';
 import 'package:gym_bud_front/screens/user_screens/user_profile_screen.dart';
 import 'package:gym_bud_front/api/workouts_api.dart';
@@ -97,8 +97,6 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // getWorkoutList();
-    // print(workoutList);
     final List<Widget> screens = [
       HomeScreen(
           loggedUserId: widget.loggedUserId,
