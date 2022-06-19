@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_bud_front/screens/globals.dart' as globals;
 import 'package:gym_bud_front/api/workout_plan_api.dart';
 import 'package:gym_bud_front/models/workout.dart';
 import 'package:gym_bud_front/models/workout_plan_model.dart';
@@ -7,10 +8,6 @@ import 'package:gym_bud_front/utilities/common_widgets.dart';
 // typedef OnDelete();
 
 class AddWorkoutPlanScreen extends StatefulWidget {
-  final String loggedUserId;
-
-  const AddWorkoutPlanScreen({Key? key, required this.loggedUserId})
-      : super(key: key);
   @override
   _AddWorkoutPlanScreenState createState() => _AddWorkoutPlanScreenState();
 }
@@ -26,8 +23,7 @@ class _AddWorkoutPlanScreenState extends State<AddWorkoutPlanScreen> {
   // final _workoutPlanRestTimeController = TextEditingController();
 
   void getWorkoutPlan() async {
-    workoutPlanList =
-        await ApiWorkoutPlan().getAllWorkoutPlans(widget.loggedUserId);
+    workoutPlanList = await ApiWorkoutPlan().getAllWorkoutPlans(globals.userId);
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
@@ -46,9 +42,9 @@ class _AddWorkoutPlanScreenState extends State<AddWorkoutPlanScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(widget.loggedUserId),
+            Text(globals.userId),
             Text(
-              "$workoutPlanList",
+              "${workoutPlanList}",
             ),
           ],
         ),

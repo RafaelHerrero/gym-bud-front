@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import 'package:gym_bud_front/screens/globals.dart' as globals;
 import 'package:gym_bud_front/models/exercises.dart';
 import 'package:gym_bud_front/utilities/common_widgets.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
@@ -8,14 +8,10 @@ import 'package:gym_bud_front/utilities/constants.dart';
 class WorkoutScreen extends StatelessWidget {
   const WorkoutScreen({
     Key? key,
-    required this.userId,
-    required this.userName,
     required this.workoutName,
     required this.workoutId,
   }) : super(key: key);
 
-  final String userId;
-  final String userName;
   final String workoutName;
   final String workoutId;
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'globals.dart' as globals;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -159,11 +160,10 @@ class _LoginScreenState extends State<LoginScreen> {
               if (kDebugMode) {
                 print(userData);
               }
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => UserScreen(
-                        loggedUserId: userData['user_id'],
-                        loggedUserName: userData['user_firstname'],
-                      )));
+              globals.userId = userData['user_id'];
+              globals.userName = userData['user_firstname'];
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => UserScreen()));
             } else {
               print('user already exists');
             }

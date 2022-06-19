@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'globals.dart' as globals;
 import 'package:flutter/material.dart';
 import 'package:gym_bud_front/models/workout_plan_workout_model.dart';
 import 'package:gym_bud_front/screens/user_screens/user_create_workout_area.dart';
@@ -8,12 +9,6 @@ import 'package:gym_bud_front/api/workouts_api.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
 
 class UserScreen extends StatefulWidget {
-  final String loggedUserId;
-  final String loggedUserName;
-  const UserScreen(
-      {Key? key, required this.loggedUserId, required this.loggedUserName})
-      : super(key: key);
-
   @override
   _UserScreenState createState() => _UserScreenState();
 }
@@ -24,7 +19,7 @@ class _UserScreenState extends State<UserScreen> {
   final today = DateTime.now();
 
   void getWorkoutList() async {
-    workoutList = await ApiWorkout().getUserActiveWorkout(widget.loggedUserId);
+    workoutList = await ApiWorkout().getUserActiveWorkout(globals.userId);
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
@@ -98,13 +93,8 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> screens = [
-      HomeScreen(
-          loggedUserId: widget.loggedUserId,
-          loggedUserName: widget.loggedUserName,
-          workoutList: workoutList),
-      CreateWorkoutScreen(
-          loggedUserId: widget.loggedUserId,
-          loggedUserName: widget.loggedUserName),
+      HomeScreen(workoutList: workoutList),
+      CreateWorkoutScreen(),
       ProfileScreen()
     ];
     return Scaffold(

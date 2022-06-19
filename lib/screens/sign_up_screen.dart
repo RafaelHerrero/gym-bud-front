@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'globals.dart' as globals;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_bud_front/screens/user_screen.dart';
@@ -18,7 +19,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
-  TextEditingController();
+      TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
@@ -205,8 +206,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             validator: (value) {
               if (passwordController.text != value) {
                 return 'Passwords are Different';
-              }
-              else {
+              } else {
                 return null;
               }
             },
@@ -237,7 +237,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: ElevatedButton(
         style: ButtonStyle(
           overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                (Set<MaterialState> states) {
+            (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) {
                 return Colors.blueGrey;
               }
@@ -255,14 +255,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
             var userData = json.decode(response);
 
             if (userData != 'error') {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => UserScreen(
-                    loggedUserId: userData['user_id'],
-                    loggedUserName: userData['user_firstname'],
-                  )
-              ));
-            }
-            else {
+              globals.userId = userData['user_id'];
+              globals.userName = userData['user_firstname'];
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => UserScreen()));
+            } else {
               print('Create User Error');
             }
           }

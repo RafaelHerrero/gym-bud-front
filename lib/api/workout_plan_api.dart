@@ -1,5 +1,4 @@
 import 'package:gym_bud_front/models/workout_plan_model.dart';
-import 'package:gym_bud_front/models/workout_plan_workout_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';

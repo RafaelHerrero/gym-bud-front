@@ -8,23 +8,11 @@ import 'package:gym_bud_front/utilities/constants.dart';
 import '../../utilities/common_widgets.dart';
 
 class CreateWorkoutScreen extends StatefulWidget {
-  final String loggedUserId;
-  final String loggedUserName;
-  const CreateWorkoutScreen(
-      {Key? key, required this.loggedUserId, required this.loggedUserName})
-      : super(key: key);
-
   @override
   _CreateWorkoutScreenState createState() => _CreateWorkoutScreenState();
 }
 
 class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
-  // Map addButtonsMap = {
-  //   'Add Woraakout': AddWorkoutScreen(),
-  //   'Add Workout Plan': AddWorkoutPlanScreen(),
-  //   'Add Exercise': AddExerciseScreen(),
-  // };
-
   Widget addWorkoutButton(Map button) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20.0),
@@ -80,7 +68,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
     List addButtons = [
       {
         "button_text": "Add Workout Plan",
-        "button_page": AddWorkoutPlanScreen(loggedUserId: widget.loggedUserId)
+        "button_page": AddWorkoutPlanScreen()
       },
       {"button_text": "Add Workout", "button_page": AddWorkoutScreen()},
       {"button_text": "Add Exercise", "button_page": AddExerciseScreen()},
