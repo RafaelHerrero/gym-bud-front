@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gym_bud_front/screens/globals.dart' as globals;
 import 'package:gym_bud_front/api/workout_plan_api.dart';
-import 'package:gym_bud_front/models/workout.dart';
+import 'package:gym_bud_front/models/workout_model.dart';
 import 'package:gym_bud_front/models/workout_plan_model.dart';
 import 'package:gym_bud_front/utilities/common_widgets.dart';
 

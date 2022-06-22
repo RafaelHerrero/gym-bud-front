@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_bud_front/models/workout_model.dart';
 import 'package:gym_bud_front/screens/globals.dart' as globals;
 import 'package:gym_bud_front/screens/workout_screens/workout_screen.dart';
 import 'package:gym_bud_front/models/workout_plan_workout_model.dart';
@@ -6,7 +7,7 @@ import 'package:gym_bud_front/utilities/common_widgets.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
 
 class HomeScreen extends StatefulWidget {
-  final List<WorkoutPlanWorkouts>? workoutList;
+  final List<Workout>? workoutList;
 
   const HomeScreen({Key? key, required this.workoutList}) : super(key: key);
 
@@ -16,8 +17,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin {
-  int counter = 0;
-
   @override
   bool get wantKeepAlive => true;
 
@@ -88,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen>
 }
 
 class _WorkoutCard extends StatelessWidget {
-  final WorkoutPlanWorkouts workout;
+  final Workout workout;
 
   const _WorkoutCard({
     Key? key,
@@ -115,7 +114,8 @@ class _WorkoutCard extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => WorkoutScreen(
-                        workoutName: workout.workoutId,
+                        workoutDescription: workout.workoutDescription,
+                        workoutName: workout.workoutName,
                         workoutId: workout.workoutId,
                       ),
                     ),
@@ -127,7 +127,7 @@ class _WorkoutCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20.0, top: 9),
                     child: Text(
-                      workout.workoutId,
+                      workout.workoutName,
                       style: kLabelStyle,
                     ),
                   ),

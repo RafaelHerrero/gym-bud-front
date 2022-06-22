@@ -1,7 +1,8 @@
 import 'dart:convert';
+import 'package:gym_bud_front/models/workout_model.dart';
+
 import 'globals.dart' as globals;
 import 'package:flutter/material.dart';
-import 'package:gym_bud_front/models/workout_plan_workout_model.dart';
 import 'package:gym_bud_front/screens/user_screens/user_create_workout_area.dart';
 import 'package:gym_bud_front/screens/user_screens/user_home_screen.dart';
 import 'package:gym_bud_front/screens/user_screens/user_profile_screen.dart';
@@ -15,7 +16,7 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen> {
   int _selectedIndex = 0;
-  late List<WorkoutPlanWorkouts>? workoutList = [];
+  late List<Workout>? workoutList = [];
   final today = DateTime.now();
 
   void getWorkoutList() async {
