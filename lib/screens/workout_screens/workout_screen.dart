@@ -17,7 +17,7 @@ class WorkoutScreen extends StatelessWidget {
   final String workoutName;
   final String workoutId;
 
-  Widget _workoutTitle(workoutName) {
+  Widget _workoutTitle() {
     return ListTile(
       title: Text(
         // "${DateFormat("EEEE").format(today)}, ${DateFormat("d MMMM").format(today)}",
@@ -145,7 +145,7 @@ class WorkoutScreen extends StatelessWidget {
           child: Column(
             children: [
               goBackOnePage(context),
-              _workoutTitle(workoutName),
+              _workoutTitle(),
               for (int i = 0; i < fullUpperBody.length; i++)
                 _workoutsDescriptions(fullUpperBody[i])
             ],

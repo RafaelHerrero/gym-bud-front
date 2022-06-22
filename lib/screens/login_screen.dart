@@ -154,9 +154,10 @@ class _LoginScreenState extends State<LoginScreen> {
               emailController.text,
               passwordController.text,
             );
-            var userData = json.decode(response);
 
-            if (userData != 'error') {
+            if (response != 'error') {
+              var userData = json.decode(response);
+
               if (kDebugMode) {
                 print(userData);
               }
