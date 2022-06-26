@@ -6,7 +6,7 @@ Widget topInformationBar(height, barTitle) {
   final today = DateTime.now();
   return Positioned(
     top: 0,
-    height: height * 0.20,
+    height: height * 0.17,
     left: 0,
     right: 0,
     child: ClipRRect(
