@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_bud_front/models/workout_model.dart';
+import 'package:gym_bud_front/models/workout_plan_model.dart';
 import 'package:gym_bud_front/screens/globals.dart' as globals;
 import 'package:gym_bud_front/screens/workout_screens/workout_screen.dart';
 import 'package:gym_bud_front/models/workout_plan_workout_model.dart';
@@ -8,8 +9,13 @@ import 'package:gym_bud_front/utilities/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<Workout>? workoutList;
+  final List<WorkoutPlan>? userActiveWorkoutPlan;
 
-  const HomeScreen({Key? key, required this.workoutList}) : super(key: key);
+  const HomeScreen(
+      {Key? key,
+      required this.workoutList,
+      required this.userActiveWorkoutPlan})
+      : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -26,11 +32,11 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _workoutListTitle() {
-    return const Padding(
-      padding: EdgeInsets.only(bottom: 8, left: 32, right: 16),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8, left: 32, right: 16),
       child: Text(
-        "Workouts",
-        style: TextStyle(
+        "Workouts - ${widget.userActiveWorkoutPlan}",
+        style: const TextStyle(
           fontSize: 28,
           fontWeight: FontWeight.w800,
           color: Colors.white,
@@ -41,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   Widget _workoutsList(height, userWorkouts) {
     return Positioned(
-      top: height * 0.24,
+      top: height * 0.19,
       left: 0,
       right: 0,
       child: Container(

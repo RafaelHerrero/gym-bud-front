@@ -4,11 +4,11 @@ import 'dart:async';
 import 'dart:convert';
 import '../utilities/constants.dart';
 
-class ApiWorkout {
-  Future<List<Workout>?> getUserActiveWorkout(
+class ApiExercise {
+  Future<List<Exercise>?> getAllExercises(
     String userId,
   ) async {
-    var finalUrl = '$baseUrl/workout/$userId/active';
+    var finalUrl = '$baseUrl/exercise/all';
 
     try {
       final response = await http.get(
@@ -18,9 +18,9 @@ class ApiWorkout {
 
       if (response.statusCode == 200) {
         Iterable variable = json.decode(response.body);
-        List<Workout> workouts =
-            variable.map((e) => Workout.fromJson(e)).toList();
-        return workouts;
+        List<Exercise> exercises =
+            variable.map((e) => Exercise.fromJson(e)).toList();
+        return exercises;
       }
     } catch (e) {
       print(e);

@@ -37,6 +37,11 @@ Widget topInformationBar(height, barTitle) {
                   color: Colors.white,
                 ),
               ),
+              trailing: Image.asset(
+                "assets/circle-cropped.png",
+                height: 30,
+                width: 30,
+              ),
             ),
           ],
         ),
