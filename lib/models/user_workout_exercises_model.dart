@@ -1,5 +1,4 @@
 class UserWorkoutExercises {
-  String userId;
   String workoutId;
   String exerciseId;
   String exerciseMuscleGroup;
@@ -10,7 +9,6 @@ class UserWorkoutExercises {
   String exerciseImage;
 
   UserWorkoutExercises({
-    required this.userId,
     required this.workoutId,
     required this.exerciseId,
     required this.exerciseMuscleGroup,
@@ -22,8 +20,7 @@ class UserWorkoutExercises {
   });
 
   UserWorkoutExercises.fromJson(Map<String, dynamic> json)
-      : userId = json['user_id'],
-        workoutId = json['workout_id'],
+      : workoutId = json['workout_id'],
         exerciseId = json['exercise_id'],
         exerciseMuscleGroup = json['exercise_muscle_group'],
         exerciseName = json['exercise_name'],
@@ -33,7 +30,6 @@ class UserWorkoutExercises {
         exerciseImage = json['exercise_image'];
 
   Map<String, dynamic> toJson() => {
-        'user_id': userId,
         'workout_id': workoutId,
         'exercise_id': exerciseId,
         'exercise_muscle_group': exerciseMuscleGroup,
