@@ -7,7 +7,7 @@ import 'globals.dart' as globals;
 import 'package:flutter/material.dart';
 import 'package:gym_bud_front/screens/user_screens/user_create_workout_area.dart';
 import 'package:gym_bud_front/screens/user_screens/user_home_screen.dart';
-import 'package:gym_bud_front/screens/user_screens/user_profile_screen.dart';
+import 'package:gym_bud_front/screens/user_screens/user_progress_screen.dart';
 import 'package:gym_bud_front/api/workouts_api.dart';
 import 'package:gym_bud_front/utilities/constants.dart';
 
@@ -93,9 +93,9 @@ class _UserScreenState extends State<UserScreen> {
           BottomNavigationBarItem(
               icon: Padding(
                 padding: EdgeInsets.only(top: 8.0),
-                child: Icon(Icons.person),
+                child: Icon(Icons.area_chart_outlined),
               ),
-              label: "Profile"),
+              label: "Progress"),
         ],
       ),
     );
@@ -108,7 +108,7 @@ class _UserScreenState extends State<UserScreen> {
           workoutList: workoutList,
           userActiveWorkoutPlan: userActiveWorkoutPlan),
       CreateWorkoutScreen(),
-      ProfileScreen()
+      ProgressScreen()
     ];
     return Scaffold(
       backgroundColor: Colors.black,

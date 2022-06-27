@@ -42,6 +42,9 @@ Widget topInformationBar(height, barTitle) {
                 height: 30,
                 width: 30,
               ),
+              onTap: () {
+                print("a");
+              },
             ),
           ],
         ),

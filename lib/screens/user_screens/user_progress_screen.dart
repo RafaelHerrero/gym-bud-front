@@ -4,25 +4,20 @@ import '../../utilities/common_widgets.dart';
 import '../../utilities/constants.dart';
 import 'package:intl/intl.dart';
 
-
-class ProfileScreen extends StatefulWidget {
+class ProgressScreen extends StatefulWidget {
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _ProgressScreenState createState() => _ProgressScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
-
+class _ProgressScreenState extends State<ProgressScreen> {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
-        children: [
-          topInformationBar(height, "Profile Screen")
-        ],
+        children: [topInformationBar(height, "User Progress Screen")],
       ),
     );
   }
 }
-
