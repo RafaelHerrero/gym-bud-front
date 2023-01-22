@@ -32,10 +32,11 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _workoutListTitle() {
+    String name = widget.userActiveWorkoutPlan![0].workoutPlanName;
     return Padding(
       padding: const EdgeInsets.only(bottom: 8, left: 32, right: 16),
       child: Text(
-        "Workouts - ${widget.userActiveWorkoutPlan}",
+        "Workouts - ${name}",
         style: const TextStyle(
           fontSize: 28,
           fontWeight: FontWeight.w800,

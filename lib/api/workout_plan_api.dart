@@ -31,7 +31,7 @@ class ApiWorkoutPlan {
   Future<List<WorkoutPlan>?> getUserActiveWorkoutPlan(
     String userId,
   ) async {
-    var finalUrl = '$baseUrl/workout/workout_plans/active/$userId';
+    var finalUrl = '$baseUrl/workout_plan/active/$userId';
 
     try {
       final response = await http.get(
